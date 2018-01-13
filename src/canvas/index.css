@@ -1,0 +1,27 @@
+.canvasWrapper {
+  flex: 1 1 auto;
+  order: 2;
+  overflow: visible;
+  display: flex;
+}
+
+.canvas {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  position: relative;
+  border-right: 1px solid var(--primary-border-color);
+  border-left: 1px solid var(--primary-border-color);
+}
+.isSelected::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  border: var(--selected-border);
+  pointer-events: none;
+  z-index: 99;
+}

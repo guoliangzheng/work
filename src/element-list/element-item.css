@@ -1,0 +1,55 @@
+@import '../variables.css';
+
+.item {
+  height: 100%;
+  width: 100%;
+
+  text-align: center;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  width: calc(100% - 2px);
+
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  fill: var(--plotly-blue);
+}
+
+.dragIcon {
+  overflow: hidden;
+  z-index: 100000;
+  position: absolute;
+  background-color: var(--secondary-background-color);
+  box-shadow: var(--drag-shadow);
+}
+
+.dragIcon svg {
+  opacity: 0.8;
+}
+
+.item h4 {
+  margin: 8px 0 0;
+  position: relative;
+  line-height: 1;
+  color: var(--secondary-font-color);
+  text-align: center;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.wrapper {
+/*   position: absolute;
+  display: inline-block; */
+}
+
+.wrapper * {
+  pointer-events: none;
+}
+
+.isPressed {
+  cursor: grabbing;
+}

@@ -1,0 +1,42 @@
+:root {
+  /* Colors */
+  --primary-background-color: #f8f8f9;
+  --secondary-background-color: #fff;
+
+  --primary-border-color: #e7e8e9;
+  --secondary-border-color: #ccc;
+  --disabled-border-color: #dce1e4;
+
+  --primary-font-color: #32393d;
+  --secondary-font-color: #757575;
+  --tertiary-font-color: #999;
+
+  --select-hover-color: #e6f2ff;
+
+  --light-bluegray: #c6d0d6;
+  --bluegray: #69738a;
+
+  --plotly-blue: #447bdc;
+  --dark-plotly-blue: #2d56aa;
+  --darker-plotly-blue: #152f5e;
+
+  --warning: #ff4545;
+
+  /* Resize Node Border */
+  --selected-border: 1px dashed #000;
+
+  /* Drop Shadows */
+  --drag-shadow: 0 1px 3px 0 rgba(204, 204, 204, 0.6);
+  --slide-stage-shadow: 0 0 3px 0 rgba(204, 204, 204, 0.4);
+  --select-list-shadow: 0 0 8px 4px rgba(204, 204, 204, 0.3);
+  --selected-editor-component-shadow: inset 0 0 5px #ccc;
+
+  /* Z-Index */
+  --negative: -1;
+  --none: 0;
+  --basic: 1;
+  --basic-increment: 2;
+  --flyout: 3;
+  --z-index-modal: 999999999;
+  --z-index-modal-negative: 999999998;
+}
