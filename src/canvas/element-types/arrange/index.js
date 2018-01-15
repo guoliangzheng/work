@@ -51,7 +51,7 @@ class Arrange extends Component {
         style={containerStyles}
         onMouseDown={this.onMouseDown}
       >
-        <div className={styles.arrange}>
+     {/*    <div className={styles.arrange}>
           <button
             className={styles.arrangeButton}
             onClick={this.onClickFront}
@@ -92,7 +92,7 @@ class Arrange extends Component {
               title="Send to back"
             />
           </button>
-        </div>
+        </div> */}
       </div>
     );
   }

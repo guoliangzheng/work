@@ -11,6 +11,8 @@ import { ElementTypes, MODES } from "../constants";
 import SnapLines from "./snap-lines";
 import * as constraints from "./constraints";
 import Slide from "./slide";
+import PropertyEditor  from './property-editor'
+
 @observer
 class Canvas extends Component  {
      static contextTypes = {
@@ -90,7 +92,7 @@ class Canvas extends Component  {
       }
     
       handleDragStart = (e, type) => {
-        this.context.store.setCurrentElementIndex(null);
+        this.context.store.setCurrentElement(null);
     
         const scale = this.context.store.scale;
         const defaultSize = this.getDefaultSize(type);
@@ -147,19 +149,6 @@ class Canvas extends Component  {
       } 
     
       elementFromType = (type) => {
-       /*  switch (type) {
-          case ElementTypes.TEXT:
-            return TextElement;
-          case ElementTypes.IMAGE:
-            return ImageElement;
-          case ElementTypes.PLOTLY:
-            return PlotlyElement;
-          case ElementTypes.CODE:
-            return CodeElement;
-          default:
-            return null;
-        }  */
-
         return null;
       }
       render(){
@@ -190,8 +179,10 @@ class Canvas extends Component  {
         />
         </div>
         <div
-            className={styles.canvasWrapper}
-            style={{
+/*             className={styles.canvasWrapper}
+ */            style={{
+              width: 1000, 
+              height: 700,
               cursor: isDraggingElement ? "move" : "auto",
               pointerEvents: isDraggingSlide ? "none" : "auto"
             }}
@@ -216,7 +207,7 @@ class Canvas extends Component  {
               </div>
             </div>
            </div>
-           
+           <PropertyEditor/>
           </div>
         );
       }

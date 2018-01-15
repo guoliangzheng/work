@@ -2,7 +2,6 @@ export const DraggableTypes = {
   UI_ELEMENT: "UI_ELEMENT"
 };
 
-// TODO: Revise list?
 export const ElementTypes = {
   HEADING: "Heading",
   TEXT: "Text",

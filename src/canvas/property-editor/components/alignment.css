@@ -1,0 +1,39 @@
+@import '../../../variables.css';
+
+.alignmentWrapper {
+  border: 1px solid var(--secondary-border-color);
+  border-radius: 20px;
+  display: flex;
+  height: 30px;
+  overflow: hidden;
+  width: 180px;
+}
+
+.alignmentWrapper .selectedAlignment {
+  background: var(--primary-border-color);
+  box-shadow: var(--selected-editor-component-shadow);
+}
+
+.alignmentWrapper > .alignmentBox {
+  cursor: pointer;
+  height: inherit;
+  text-align: center;
+  vertical-align: middle;
+  width: 33%;
+}
+
+.alignmentWrapper > .alignmentBox + .alignmentBox {
+  border-left: 1px solid var(--secondary-border-color);
+}
+
+.alignmentBox:last-child > svg {
+  position: relative;
+  left: -4px;
+}
+
+.alignmentBox > svg {
+  color: #000;
+  height: 16px;
+  width: 16px;
+  vertical-align: -6px;
+}

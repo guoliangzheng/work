@@ -221,8 +221,8 @@ export default class TextElement extends Component {
         resizeVertical={false}
         canArrange={this.props.canArrange && !this.state.isEditing}
         getSize={this.getSize}
-      >
-        <ContentEditable
+      >      
+      {/*    <ContentEditable
           style={{
             ...this.context.store.paragraphStyles[componentProps.paragraphStyle],
             ...omit(componentProps.style, "position", "left", "top", "height"),
@@ -238,7 +238,9 @@ export default class TextElement extends Component {
           onBlur={this.handleBlur}
           html={this.state.htmlContent}
           disabled={!this.state.isEditing}
-        />
+        />  */}
+        <input           ref={el => { this.inputElement = ReactDOM.findDOMNode(el); }}
+   style={{ width }}></input>
       </CanvasElement>
     );
   }

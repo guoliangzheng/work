@@ -8,7 +8,7 @@ import { BLACKLIST_CURRENT_ELEMENT_DESELECT, ElementTypes, MODES } from "../cons
 import styles from "./slide.css";
 import * as constraints from "./constraints";
 import SnapLines from "./snap-lines";
-import { TextElement, ImageElement, PlotlyElement} from "./element-types";
+import elementFromType from "./element-types";
 
 @observer
 class Slide extends Component {
@@ -70,7 +70,6 @@ class Slide extends Component {
                                                     this.context.store.height / this.props.scale,
                                                     mode);
 
-    // intermediarySize is the in-process drag/resize size
     this.setState({ activeSnapLines: results.lines, intermediarySize: constrained });
   }
 
@@ -120,6 +119,10 @@ class Slide extends Component {
     this.runConstraints(e, originalSize, nextSize, mode);
   }
 
+  handleMouseOver=(id)=>{
+    this.context.store.setMouserOverElement(id);    
+  }
+
   handleDragStart = () => {
     this.stopNudging();
     this.calculateSnapLines();
@@ -132,11 +135,10 @@ class Slide extends Component {
     this.setState({ activeSnapLines: [], intermediarySize: null });
   }
 
-  handleMouseDown = (idx) => {
+  handleMouseDown = (id) => {
     this.stopNudging();
-    this.context.store.setCurrentElementIndex(idx);
+    this.context.store.setCurrentElement(id);
   }   
-
   stopNudging = () => {
     if (this.isNudging) {
       this.isNudging = false;
@@ -179,24 +181,15 @@ class Slide extends Component {
     this.stopNudging();
   }
 
-  elementFromType = (type) => {
-    switch (type) {
-      case ElementTypes.TEXT:
-        return TextElement;
-      case ElementTypes.IMAGE:
-        return ImageElement;
-      case ElementTypes.PLOTLY:
-        return PlotlyElement;
-     
-      default:
-        return null;
-    }
-  }
 
-  renderChild = (childObj, i) => {
+
+  renderChild = (child) => {
+    const id = child.id;
     const store = this.context.store;
-    const isSelected = store.currentElementIndex === i;
-
+    const isSelected = store.currentElement === id;
+  
+    const childObj = store.components.get(id);
+    if(!childObj) return;
     const classes = classNames({
       [styles.slideItem]: true,
       [styles.isSelected]: isSelected,
@@ -204,13 +197,14 @@ class Slide extends Component {
     });
 
     const intermediarySize = isSelected ? this.state.intermediarySize : null;
-    const Element = this.elementFromType(childObj.type);
-
+ 
+    const Element = elementFromType.get(childObj.type);
     return (
       <div
         key={childObj.id}
         className={classes}
-        onMouseDown={this.handleMouseDown.bind(null, i)}
+        onMouseDown={this.handleMouseDown.bind(null, childObj.id)}
+        onDragOver={this.handleMouseDown.bind(null, childObj.id)}
         style={{
           top: intermediarySize ? intermediarySize.top : childObj.props.style.top,
           left: intermediarySize ? intermediarySize.left : childObj.props.style.left
@@ -218,7 +212,6 @@ class Slide extends Component {
       >
         <Element
           component={childObj}
-          elementIndex={i}
           ref={(el) => { this.elementRefs[childObj.id] = el; }}
           scale={this.props.scale}
           rect={intermediarySize}
@@ -228,6 +221,7 @@ class Slide extends Component {
           onDrag={this.handleDrag}
           onDragStart={this.handleDragStart}
           onDragStop={this.handleDragStop}
+          
           isSelected={isSelected}
           isResizing={isSelected && store.isResizing}
           isDragging={isSelected && store.isDragging}
@@ -235,23 +229,25 @@ class Slide extends Component {
           resizeVertical={isSelected && !store.isDragging}
           canArrange={isSelected && !store.isResizing && !store.isDragging}
           draggable
-        />
+        >
+        
+        {childObj.children!=null && childObj.children.map(this.renderChild) }
+        </Element>
       </div>
     );
   }
 
   render() {
-    const { store: { currentSlide } } = this.context;
-    if (!currentSlide) return null;
-     
+     const {store:{components,rootID}} = this.context;
+    if (!components) return null;
     const classes = classNames({
       [styles.slide]: true,
       [styles.isDragging]: this.context.store.isDragging
     });
-    console.log(currentSlide);
+    const currentSlide = components.get(rootID);
     return (
       <div className={classes} style={{ ...currentSlide.props.style }} id="slide">
-        {currentSlide && currentSlide.children.map(this.renderChild)}
+        {currentSlide && rootID && currentSlide.children.map(this.renderChild)}
         <SnapLines lines={this.state.activeSnapLines} scale={this.props.scale} />
       </div>
     );

@@ -1,0 +1,49 @@
+.colorPickerTemplateBox {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  cursor: pointer;
+  height: 30px;
+  width: 50px;
+}
+
+.colorWrapper {
+  position: relative;
+  display: flex;
+}
+
+.dropper {
+  position: relative;
+
+  cursor: pointer;
+  height: 30px;
+  margin: 0 0 0 5px;
+  padding: 0;
+  width: 22px;
+
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}
+
+.dropper > svg {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  fill: #3563d3;
+  height: auto;
+  width: 100%;
+}
+
+.pickerWrapper {
+  position: absolute;
+  left: -20px;
+  top: 31px;
+  z-index: 5;
+}
+
+.hidden {
+  display: none;
+}

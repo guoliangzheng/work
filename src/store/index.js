@@ -1,10 +1,11 @@
 import { observable, computed, transaction, asReference } from "mobx";
 import Immutable from "seamless-immutable";
 import { merge, mergeWith, pick, omit } from "lodash";
-import { generate } from "shortid";
+import uuid from '../util/uuid'
 import elementMap from "../canvas/elements";
 
 export default class Store{
+    @observable rootID = null;
     @observable width = 0;
     @observable height = 0;
     @observable left = 0;
@@ -18,23 +19,29 @@ export default class Store{
     @observable isDraggingElement = false;
     @observable isDraggingNewElement = false;
 
-    @observable side = false;;
-    @computed get currentSlide() {
-      return this.side;
-    }
-    constructor(side) {
+    @observable currentElement = null;
+    @observable mouseOverElement = null;
 
-      if(side){
-        this.side = side;
+    @observable side = false;
+    @observable components = null;
+    @computed get currentSlide() {
+      return this.slide;
+    }
+    constructor(slide) {
+
+      if(slide){
+        this.slide = slide;
       }else{
-        this.side = Immutable.from( {
-          id: generate(),
+        let id = uuid();
+        this.rootID = id;
+        this.slide = Immutable.from( {
+          id: id,
           props: { style: {}, transition: ["slide"] },
           children: []
-       })
-      }
-
-   
+         })
+         this.components = new Map();
+         this.components.set(id,this.slide);
+        }
     }
   setCanvasSize({ width, height, left, top, scale }) {
     transaction(() => {
@@ -55,18 +62,21 @@ export default class Store{
   }
 
   dropElement(elementType, extraProps) {
-    const slideToAddTo = this.currentSlide;
-
+    
+    let selectItemid = this.mouseOverElement || this.rootID;
+    const parent = this.components.get(selectItemid);
+    //const slideToAddTo = this.currentSlide;
     const element = elementMap[elementType];
-     const mergedProps = merge(element.props, extraProps);
-
-    slideToAddTo.children.push({
+    const id = uuid();
+    const mergedProps = merge(element.props, extraProps);
+    const child= {
       ...element,
       props: mergedProps,
-      id: generate()
-    });
-
-    console.log(slideToAddTo);
+      id: id,
+      children:[]
+    }
+    parent.children.push(child);
+    this.components.set(id,child)
   }
   
   updateElementResizeState(isResizingElement, cursor = null) {
@@ -82,65 +92,23 @@ export default class Store{
       this.isDraggingSlide = isDraggingSlide;
     });
   }
-  setCurrentElementIndex(newIndex) {
-   /*  const snapshot = this.currentState;
-    snapshot.currentElementIndex = newIndex;
-
-    transaction(() => {
-      const left = this.history.slice(0, this.historyIndex);
-      const right = this.history.slice(this.historyIndex + 1, this.history.length);
-    //  this.history = left.concat([snapshot], right);
-    }); */
+  setCurrentElement(id) {
+      this.currentElement = id;
   }
 
-  updateElementProps(props, currentElementIndex) {
+  setMouserOverElement(id){
+    this.mouseOverElement = id;
+  }
+
+   updateElementProps(props) {
+
+    if(this.currentElement==null) return;
     
-    const slide = this.currentSlide;
-    const currentElement = slide.children[slide]
-    if (!currentElement) {
-      return;
-    }
+    const currentElement = this.components.get(this.currentElement);
     const { paragraphStyle } = currentElement.props;
     const newProps = merge(currentElement.props, props);
-    const newState = this.currentState;
-
-    if (
-      paragraphStyle !== props.paragraphStyle &&
-      props.style &&
-      !Object.keys(props.style).length
-    ) {
-      // if paragraph style changes, remove all added styles, but not any other ones affecting
-      // position and word wrap
-      newProps.style = omit(newProps.style, Object.keys(newState.paragraphStyles[paragraphStyle]));
-    }
-
-    newState.slide.children[currentElementIndex].props = newProps;
-   /*  const elementIndex = typeof currentElementIndex === "number" ?
-      currentElementIndex
-      :
-      this.currentElementIndex;
-
-    const currentElement = this.slides[slideIndex].children[elementIndex] || this.currentElement;
-
-    if (!currentElement) {
-      return;
-    }
-
-    const { paragraphStyle } = currentElement.props;
-    const newProps = merge(currentElement.props, props);
-    const newState = this.currentState;
-
-    if (
-      paragraphStyle !== props.paragraphStyle &&
-      props.style &&
-      !Object.keys(props.style).length
-    ) {
-      // if paragraph style changes, remove all added styles, but not any other ones affecting
-      // position and word wrap
-      newProps.style = omit(newProps.style, Object.keys(newState.paragraphStyles[paragraphStyle]));
-    }
-
-    newState.slides[slideIndex].children[elementIndex].props = newProps; */
+  
+    currentElement.props =newProps;
   }
 
 

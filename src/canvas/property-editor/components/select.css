@@ -1,0 +1,58 @@
+@import '../../../variables.css';
+
+.chevronWrapper {
+  color: #999;
+  cursor: pointer;
+  position: absolute;
+  right: 12px;
+  top: 2px;
+  font-size: 17px;
+}
+
+.focus {
+  outline-width: 0;
+}
+
+.ion-ios-arrow-down::before {
+  color: blue;
+  height: 20px;
+}
+
+.list {
+  background: #fff;
+  border: 1px solid var(--secondary-border-color);
+  border-radius: 4px;
+  box-shadow: var(--select-list-shadow);
+  box-sizing: border-box;
+  color: #000;
+  font-size: 14px;
+  letter-spacing: 0.2px;
+  line-height: 1.8;
+  padding: 10px 0;
+  position: absolute;
+  width: 180px;
+  z-index: 5;
+}
+
+.selectBox {
+  background: #fff;
+  border: 1px solid var(--secondary-border-color);
+  border-radius: 20px;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
+  font-size: 12px;
+  letter-spacing: 0.2px;
+  line-height: 1.8;
+  outline-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  padding: 3px 21px 0 13px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.selectWrapper {
+  height: 30px;
+}

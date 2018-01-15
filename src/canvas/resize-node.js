@@ -46,7 +46,7 @@ export default class ResizeNode extends Component {
     return (
       <span
         className={iconClass}
-        dangerouslySetInnerHTML={{ __html: RESIZECORNER }}
+      //  dangerouslySetInnerHTML={{ __html: RESIZECORNER }}
       >
       </span>
     );
