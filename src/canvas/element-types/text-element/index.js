@@ -213,34 +213,19 @@ export default class TextElement extends Component {
 
     let width = componentProps.style.width ? componentProps.style.width : "auto";
     width = this.props.rect ? this.props.rect.width : width;
+    let height = this.props.rect ? this.props.rect.height : componentProps.style.height;
 
     return (
       <CanvasElement
         {...pick(this.props, Object.keys(CanvasElementPropTypes))}
         resizeHorizontal={this.props.resizeHorizontal && !this.state.isEditing}
-        resizeVertical={false}
+        resizeVertical={true}
         canArrange={this.props.canArrange && !this.state.isEditing}
         getSize={this.getSize}
       >      
-      {/*    <ContentEditable
-          style={{
-            ...this.context.store.paragraphStyles[componentProps.paragraphStyle],
-            ...omit(componentProps.style, "position", "left", "top", "height"),
-            width
-          }}
-          className={classes}
-          tagName={tagName}
-          ref={el => { this.inputElement = ReactDOM.findDOMNode(el); }}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-          onMouseUp={this.handleMouseUp}
-          onMouseDown={this.handleMouseDown}
-          onBlur={this.handleBlur}
-          html={this.state.htmlContent}
-          disabled={!this.state.isEditing}
-        />  */}
-        <input           ref={el => { this.inputElement = ReactDOM.findDOMNode(el); }}
-   style={{ width }}></input>
+     
+        <input  ref={el => { this.inputElement = ReactDOM.findDOMNode(el); }}
+   style={{ width,height }}></input>
       </CanvasElement>
     );
   }

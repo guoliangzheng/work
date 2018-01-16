@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
 import { autorun } from "mobx";
-import PropTypes from 'prop-types'
 import styles from "./index.css";
-import { ElementTypes, BLACKLIST_CURRENT_ELEMENT_DESELECT } from "../../constants";
-const Menumap = new Map();
+import PropTypes, { element } from 'prop-types';
 
+import TextProperty from './text-property'
+import ImageProperty from './image-property'
+import { ElementTypes, BLACKLIST_CURRENT_ELEMENT_DESELECT } from "../../constants";
+const propertyEditorMappering = new Map();
+propertyEditorMappering.set(ElementTypes.TEXT,TextProperty)
+propertyEditorMappering.set(ElementTypes.IMAGE,ImageProperty)
 
 @observer
 class PropertyEditor extends Component {
@@ -26,6 +30,7 @@ class PropertyEditor extends Component {
     autorun(() => {
       if (this.context.store.currentElement) {
         const currentElement =  this.context.store.components.get(this.context.store.currentElement)
+
         this.setState({
           hasMenu: true,
           contextualMenu: currentElement.type
@@ -38,11 +43,15 @@ class PropertyEditor extends Component {
 
   render() {
     const moveMenu = this.state.hasMenu ? styles.slidesInactive : "";
-    const { hasMenu} = this.state;
-
+    const { contextualMenu} = this.state;
+    const Element = propertyEditorMappering.get(contextualMenu);
+    if(Element==null){
+      return <div></div>
+    }
+    
     return (
       <div className={`${styles.editor} ${BLACKLIST_CURRENT_ELEMENT_DESELECT}`}>
-             
+            <Element/>
       </div>
     );
   }

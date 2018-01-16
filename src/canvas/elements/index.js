@@ -11,17 +11,17 @@ elements[ElementTypes.TEXT] = {
   type: ElementTypes.TEXT,
   defaultWidth: 52,
   defaultHeight: 36,
-  defaultText: ["Text"],
-  resizeVertical: false,
+  defaultText: ["hello is me"],
   props: {
-    paragraphStyle: "Heading 1",
     isQuote: false,
     size: 4,
     listType: null,
     style: {
-      wordBreak: "break-word"
+      wordBreak: "break-word",
+      width: 200,
+      height: 50,
+      
     }
-
   },
   children: null
 };
@@ -29,7 +29,7 @@ elements[ElementTypes.TEXT] = {
 elements[ElementTypes.IMAGE] = {
   type: ElementTypes.IMAGE,
   props: {
-    src: `data:image/svg+xml;utf8,${imagePlaceholder}`,
+    src: `http://jxdinfo.com//r/cms/www/default/images/hz9.jpg`,
     style: {
       width: 281,
       height: 200,
@@ -39,49 +39,31 @@ elements[ElementTypes.IMAGE] = {
   children: []
 };
 
-elements[ElementTypes.PLOTLY] = {
-  type: ElementTypes.PLOTLY,
+elements[ElementTypes.BOX] = {
+  type: ElementTypes.BOX,
+  resizeVertical: true,
   props: {
-    src: "https://plot.ly/~rgerstenberger/0.embed?link=false",
-    frameBorder: 0,
-    scrolling: "no",
+    paragraphStyle: "Heading 1",
+    isQuote: false,
+    size: 4,
+    listType: null,
     style: {
-      width: 450,
-      height: 400
-    }
-
-  },
-  children: []
-};
-
-elements[ElementTypes.PLOTY_PLACEHOLDER_IMAGE] = {
-  // Values calculated at scale: 1
-  type: ElementTypes.PLOTY_PLACEHOLDER_IMAGE,
-  ComponentClass: Image,
-  props: {
-    src: plotlyPlaceholder,
-    style: {
-      width: 450,
-      height: 400
-    }
-  },
-  children: []
-};
-
-
-elements[ElementTypes.CODE] = {
-  type: ElementTypes.CODE,
-  defaultText: "Code",
-  props: {
-    language: "javascript",
-    theme: "tomorrowNight",
-    style: {
-      margin: 0,
-      textAlign: "left",
-      width: 400,
-      fontFamily: "Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace",
-      height: 200,
-      fontSize: 13
+      flex:'',
+      flexGrow:'',
+      flexShrink:'',
+      flexBasis:'',
+      width:'', 
+      minWidth:'',
+      maxWidth:'', 
+      height:'', 
+      minHeight:'', 
+      maxHeight:'',
+      column:'',
+      row:'', 
+      wrap:'',
+      inline:'', 
+      center:'',
+      fit:''
     }
   },
   children: []

@@ -1,4 +1,4 @@
-import { observable, computed, transaction, asReference } from "mobx";
+import { observable, computed, transaction, asReference,autorun } from "mobx";
 import Immutable from "seamless-immutable";
 import { merge, mergeWith, pick, omit } from "lodash";
 import uuid from '../util/uuid'
@@ -24,6 +24,7 @@ export default class Store{
 
     @observable side = false;
     @observable components = null;
+    @observable poprtyeChange =0;
     @computed get currentSlide() {
       return this.slide;
     }
@@ -76,6 +77,7 @@ export default class Store{
       children:[]
     }
     parent.children.push(child);
+    debugger;
     this.components.set(id,child)
   }
   
@@ -100,15 +102,21 @@ export default class Store{
     this.mouseOverElement = id;
   }
 
-   updateElementProps(props) {
+  updateElementProps(props) {
+      if(this.currentElement==null) return;
+      const currentElement = this.components.get(this.currentElement);
+      const newProps = merge(currentElement.props, props);
+      currentElement.props =newProps;
+      this.poprtyeChange = this.poprtyeChange^1;
+  }
 
-    if(this.currentElement==null) return;
-    
-    const currentElement = this.components.get(this.currentElement);
-    const { paragraphStyle } = currentElement.props;
-    const newProps = merge(currentElement.props, props);
+  @computed get getpoprtyeChange(){
+    return this.poprtyeChange;
+  }
   
-    currentElement.props =newProps;
+  @computed get currentComponents(){
+    const currentElement = this.components.get(this.currentElement);
+    return currentElement;
   }
 
 
