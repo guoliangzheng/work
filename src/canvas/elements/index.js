@@ -68,5 +68,21 @@ elements[ElementTypes.BOX] = {
   },
   children: []
 };
-
+elements[ElementTypes.LAYOUT] = {
+  type: ElementTypes.LAYOUT,
+  resizeVertical: true,
+  props: {
+    style: {
+      display: 'flex',
+      flex: 1,
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      flexDirection:'column'
+    }
+  },
+  children: []
+};
 export default elements;

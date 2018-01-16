@@ -25,6 +25,7 @@ export default class Store{
     @observable side = false;
     @observable components = null;
     @observable poprtyeChange =0;
+    @observable dropTagElementId = null;
     @computed get currentSlide() {
       return this.slide;
     }
@@ -63,7 +64,7 @@ export default class Store{
   }
 
   dropElement(elementType, extraProps) {
-    
+    alert(elementType)
     let selectItemid = this.mouseOverElement || this.rootID;
     const parent = this.components.get(selectItemid);
     //const slideToAddTo = this.currentSlide;
@@ -77,7 +78,6 @@ export default class Store{
       children:[]
     }
     parent.children.push(child);
-    debugger;
     this.components.set(id,child)
   }
   
@@ -118,7 +118,14 @@ export default class Store{
     const currentElement = this.components.get(this.currentElement);
     return currentElement;
   }
+  setDropTagElement(id){
+    this.dropTagElementId= id;
+  }
 
+  @computed get dropTagElement(){
+    const currentElement = this.components.get(this.dropTagElementId);
+    return currentElement;
+  }
 
 
 }

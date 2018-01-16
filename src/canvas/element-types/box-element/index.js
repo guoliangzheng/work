@@ -3,7 +3,7 @@ import omit from 'lodash'
 import { pick } from "lodash";
 import CanvasElement, { CanvasElementPropTypes } from "../../canvas-element";
 import PropTypes from 'prop-types';
-export class BoxElement extends React.PureComponent {
+export default class BoxElement extends React.PureComponent {
  
   static propTypes = {
     ...CanvasElementPropTypes,
@@ -13,9 +13,16 @@ export class BoxElement extends React.PureComponent {
     })
   }
 
+  getSize = () => ({
+    width: this.props.component.props.style.width,
+    height: this.props.component.props.style.height,
+    left: this.props.component.props.style.left,
+    top: this.props.component.props.style.top
+  })
+
  
   render() {
-    const props = this.props
+    const props = this.props.component.props;
     const styles = { }
 
     // shortcut props
@@ -70,15 +77,15 @@ export class BoxElement extends React.PureComponent {
     // processing styles and normalizing flexbox specifications
 /*     const prefixedStyles = prefixAll(styles)
  */    const className = (props.className || '') + ' react-layout-components--box'
-/*     const childProps = omit(props, layoutProps)
- */
+     const childProps = props//omit(props, layoutProps);
+     const componentProps = this.props.component.props;
     return (
       <CanvasElement
         {...pick(this.props, Object.keys(CanvasElementPropTypes))}
         getSize={this.getSize}
-      >
-        <div/*  {...childProps} */ className={className} style={{ /* ...prefixedStyles, */ ...props.style }}>
-          {props.children}
+      >      
+        <div  {...childProps} className={className} style={{ /* ...prefixedStyles, */ ...props.style }}>
+             hello is me ?
         </div>
       </CanvasElement>
     )

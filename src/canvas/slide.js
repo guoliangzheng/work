@@ -134,7 +134,9 @@ class Slide extends Component {
     this.context.store.updateElementDraggingState(false);
     this.setState({ activeSnapLines: [], intermediarySize: null });
   }
-
+  handleDrop =(mode)=>{
+    alert('drop');
+  }
   handleMouseDown = (id) => {
     this.stopNudging();
     this.context.store.setCurrentElement(id);
@@ -197,20 +199,19 @@ class Slide extends Component {
     });
 
     const intermediarySize = isSelected ? this.state.intermediarySize : null;
- 
     const Element = elementFromType.get(childObj.type);
+ 
+    let top = intermediarySize ? intermediarySize.top : childObj.props.style.top;
+    let left= intermediarySize ? intermediarySize.left : childObj.props.style.left
     return (
-      <div
-        key={childObj.id}
-        className={classes}
-        onMouseDown={this.handleMouseDown.bind(null, childObj.id)}
-        onDragOver={this.handleMouseDown.bind(null, childObj.id)}
-        style={{
-          top: intermediarySize ? intermediarySize.top : childObj.props.style.top,
-          left: intermediarySize ? intermediarySize.left : childObj.props.style.left
-        }}
-      >
+    
         <Element
+          key={childObj.id}
+          classes={classes}
+          mouseDownAction={this.handleMouseDown.bind(null, childObj.id)}
+          dragOverAction={this.handleMouseDown.bind(null, childObj.id)}
+          postions={{top:top,left:left}}
+
           component={childObj}
           ref={(el) => { this.elementRefs[childObj.id] = el; }}
           scale={this.props.scale}
@@ -221,7 +222,6 @@ class Slide extends Component {
           onDrag={this.handleDrag}
           onDragStart={this.handleDragStart}
           onDragStop={this.handleDragStop}
-          
           isSelected={isSelected}
           isResizing={isSelected && store.isResizing}
           isDragging={isSelected && store.isDragging}
@@ -233,7 +233,6 @@ class Slide extends Component {
         
         {childObj.children!=null && childObj.children.map(this.renderChild) }
         </Element>
-      </div>
     );
   }
 

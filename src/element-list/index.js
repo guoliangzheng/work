@@ -5,7 +5,7 @@ import ElementItem from "./element-item";
 import styles from "./index.css";
 import { ElementTypes } from "../constants";
 
-const elements = [ElementTypes.TEXT, ElementTypes.IMAGE, ElementTypes.BOX];
+const elements = [ElementTypes.TEXT, ElementTypes.IMAGE, ElementTypes.BOX,ElementTypes.LAYOUT];
 const elementWidth = 60;
 const elementHeight = 48;
 const elementMarginRight = 25;
@@ -28,7 +28,6 @@ class ElementList extends Component {
 
   componentDidMount = () => {
     this.resize();
-
     window.addEventListener("load", this.resize);
     window.addEventListener("resize", this.resize);
   }
@@ -50,7 +49,6 @@ class ElementList extends Component {
 
   render() {
     const { listLeft } = this.state;
-
     return (
       <div className={styles.list}>
         {elements.map((elementType, i) => (

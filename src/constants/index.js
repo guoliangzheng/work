@@ -7,6 +7,7 @@ export const ElementTypes = {
   TEXT: "Text",
   IMAGE: "Image",
   BOX:'Box',
+  LAYOUT:'Layout',
   LINK: "Link",
   TABLE: "Table",
   IFRAME: "IFrame"

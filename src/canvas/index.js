@@ -138,7 +138,7 @@ class Canvas extends Component  {
       }
     
       handleDrop = (type) => {
-         const rect = this.state.elementRect || this.getDefaultPosition(type);
+        const rect = this.state.elementRect || this.getDefaultPosition(type);
         this.context.store.dropElement(type, {
           style: {
             position: "absolute",
@@ -147,7 +147,6 @@ class Canvas extends Component  {
           }
         }); 
       } 
-    
       elementFromType = (type) => {
         return null;
       }
