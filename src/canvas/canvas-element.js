@@ -47,7 +47,7 @@ class CanvasElement extends Component {
           draggable={this.props.draggable}
           scale={this.props.scale}
         >
-          {this.props.children}
+        {this.props.children}
         </Draggable>
         {this.props.canArrange ? <Arrange scale={this.props.scale} /> : null}
       </Resizable>

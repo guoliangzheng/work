@@ -15,7 +15,7 @@ export default class BoxElement extends React.PureComponent {
     })
   }
   componentDidMount(){
-    document.addEventListener('mouseenter',(e)=>{
+    document.addEventListener('mouseover',(e)=>{
         this.context.store.setDropTagElement(this.props.index)
         this.context.store.updateElementParent();
         e.stopPropagation();
@@ -40,7 +40,8 @@ export default class BoxElement extends React.PureComponent {
     const position = style.position;
     const padding = style.padding;
     const background =style.background;
-    return (    
+    return (
+         
       <div 
       key={this.props.index}
       className={this.props.classes}

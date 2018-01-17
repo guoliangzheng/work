@@ -20,7 +20,10 @@ export default class LayoutElement extends Component {
   })
   componentDidMount(){
     document.addEventListener('mouseover',(e)=>{
-        this.context.store.setDropTagElement(this.props.index)
+        this.context.store.setDropTagElement(this.props.index);
+        this.context.store.updateElementParent();
+        e.stopPropagation();
+
       },false);
 /*     document.addEventListener('mouseup',(e)=>{this.endDrag(e);},false);
  */  

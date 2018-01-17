@@ -37,6 +37,7 @@ export default class Store{
         let id = uuid();
         this.rootID = id;
         this.slide = Immutable.from( {
+          parent:null,
           id: id,
           props: { style: {}, transition: ["slide"] },
           children: []
@@ -65,20 +66,22 @@ export default class Store{
 
   dropElement(elementType, extraProps) {
     let selectItemid = this.dropTagElementId || this.rootID;
-
     const parent = this.components.get(selectItemid);
+    if(parent==null)  return ;
     //const slideToAddTo = this.currentSlide;
     const element = elementMap[elementType];
     const id = uuid();
     const mergedProps = merge(element.props, extraProps);
     const child= {
       ...element,
+      parent:selectItemid,
       props: mergedProps,
       id: id,
       children:[]
     }
-    parent.children.push(child);
-    this.components.set(id,child)
+    parent.children.push(id);
+    this.components.set(id,child);
+    
   }
   
   updateElementResizeState(isResizingElement, cursor = null) {
@@ -110,6 +113,31 @@ export default class Store{
       this.poprtyeChange = this.poprtyeChange^1;
   }
 
+  updateElementParent(props){
+
+
+   /*  if(this.dropTagElementId==null) return;
+    const currentElement = this.components.get(this.currentElement);
+    if(currentElement==null) return;
+    const currentID = this.currentElement;
+    const oldParentID = currentElement.parent;
+    if(!oldParentID) return;
+    if(oldParentID==this.dropTagElementId){
+      return ;
+    }
+    const oldParent = this.components.get(this.oldParentID);
+    const newParent = this.components.get(this.dropTagElementId);
+
+    newParent.children.push(this.currentElement);
+    let tmep = []
+    oldParent.children.map((id)=>{
+        if(id!=currentID){
+          tmep.push(id);
+        }
+      }
+    );
+    oldParent.children =tmep; */
+  }
   @computed get getpoprtyeChange(){
     return this.poprtyeChange;
   }

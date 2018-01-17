@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import styles from './index.css'
+import { observer } from "mobx-react";
+@observer
 export default class Width extends Component {
       
   static contextTypes = {

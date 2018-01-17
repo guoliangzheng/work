@@ -5,8 +5,6 @@ import imagePlaceholder from "../../assets/icons/image.svg";
 import { ElementTypes } from "../../constants";
 
 const elements = {};
-
-
 elements[ElementTypes.TEXT] = {
   type: ElementTypes.TEXT,
   defaultWidth: 52,
@@ -25,7 +23,6 @@ elements[ElementTypes.TEXT] = {
   },
   children: null
 };
-
 elements[ElementTypes.IMAGE] = {
   type: ElementTypes.IMAGE,
   props: {
@@ -48,22 +45,12 @@ elements[ElementTypes.BOX] = {
     size: 4,
     listType: null,
     style: {
-      flex:'',
-      flexGrow:'',
-      flexShrink:'',
-      flexBasis:'',
-      width:'', 
-      minWidth:'',
-      maxWidth:'', 
-      height:'', 
-      minHeight:'', 
-      maxHeight:'',
-      column:'',
-      row:'', 
-      wrap:'',
-      inline:'', 
-      center:'',
-      fit:''
+      position:'relative',
+      padding: "1rem",
+      width:100,
+      background:" #FFF",
+      height: 100,
+      color: "#111"
     }
   },
   children: []
@@ -80,9 +67,52 @@ elements[ElementTypes.LAYOUT] = {
       right: 0,
       top: 0,
       bottom: 0,
-      flexDirection:'column'
+      flexDirection:'column',
     }
   },
   children: []
 };
+
+elements[ElementTypes.TABLE] = {
+  type: ElementTypes.TABLE,
+  resizeVertical: true,
+  props: {
+    style: {
+      width: 400,
+      height: 400,
+      left: 0,
+      top: 0
+    },
+    columns : [{
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+        render: text => <a href="#">{text}</a>,
+      }, {
+        title: 'Age',
+        dataIndex: 'age',
+        key: 'age',
+      }, {
+        title: 'Address',
+        dataIndex: 'address',
+        key: 'address',
+      }
+    ],
+    data : [{
+      name: 'John Brown',
+      age: 32,
+      address: 'New York No. 1 Lake Park',
+    }, {
+      name: 'Jim Green',
+      age: 42,
+      address: 'London No. 1 Lake Park',
+    }, {
+      name: 'Joe Black',
+      age: 32,
+      address: 'Sidney No. 1 Lake Park',
+    }]
+  },
+  children: []
+};
+
 export default elements;

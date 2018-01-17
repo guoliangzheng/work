@@ -6,10 +6,13 @@ import PropTypes, { element } from 'prop-types';
 
 import TextProperty from './text-property'
 import ImageProperty from './image-property'
+import TableProperty from './table-property'
+
 import { ElementTypes, BLACKLIST_CURRENT_ELEMENT_DESELECT } from "../../constants";
 const propertyEditorMappering = new Map();
 propertyEditorMappering.set(ElementTypes.TEXT,TextProperty)
 propertyEditorMappering.set(ElementTypes.IMAGE,ImageProperty)
+propertyEditorMappering.set(ElementTypes.TABLE,TableProperty)
 
 @observer
 class PropertyEditor extends Component {

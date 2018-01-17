@@ -33,6 +33,7 @@ class Slide extends Component {
   componentDidMount() {
       document.addEventListener('mouseover',(e)=>{
           this.context.store.setDropTagElement(this.context.store.rootID)
+          this.context.store.updateElementParent();
         },false);
 
     document.addEventListener("keydown", this.handleKeyDown);
@@ -46,12 +47,10 @@ class Slide extends Component {
 
   getSnapLines = () => {
     const rects = [];
-
     this.context.store.currentSlide.children.forEach((child, idx) => {
       if (idx === this.context.store.currentElementIndex) return;
       rects.push(this.elementRefs[child.id].getSize());
     });
-
     const lines = constraints.rectToSnapLines({
       top: 0,
       left: 0,
@@ -147,7 +146,6 @@ class Slide extends Component {
   handleDrop =(mode)=>{
   }
   handleMouseDown = (id,event) => {
-    console.log("mousedown   "+id)
     this.stopNudging();
     this.context.store.setCurrentElement(id);
     event.stopPropagation();//阻止事件冒泡
@@ -196,12 +194,11 @@ class Slide extends Component {
 
 
 
-  renderChild = (child) => {
+  renderChild = (id) => {
 
-    const id = child.id;
-    const store = this.context.store;
+/*     const id = child.id;
+ */ const store = this.context.store;
     const isSelected = store.currentElement === id;
-  
     const childObj = store.components.get(id);
     if(!childObj) return;
     const classes = classNames({
