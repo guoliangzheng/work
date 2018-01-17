@@ -57,15 +57,16 @@ class ElementItem extends Component {
 
     let isUpdating = false;
     let newOverCanvasPosition = null;
+    newOverCanvasPosition = [offsetX, offsetY];
 
-    if (id === "canvas" || id === "slide") {
+    /* if (id === "canvas" || id === "slide") {
       newOverCanvasPosition = [offsetX, offsetY];
 
     // Switching from canvas element back to icon, do not animate icon
     } else if (isOverCanvasPosition !== null) {
       isUpdating = true;
     }
-
+ */
     const mousePosition = {
       clientX,
       clientY
@@ -80,7 +81,6 @@ class ElementItem extends Component {
     if (newOverCanvasPosition) {
       this.props.onDrag(mousePosition);
     }
-
     this.setState({
       delta: newDelta,
       // TODO: Clean up these two properties
@@ -98,14 +98,14 @@ class ElementItem extends Component {
   handleMouseDown = (ev) => {
     ev.preventDefault();
     ev.persist();
-
     const { pageX, pageY } = ev;
-
+    
     window.addEventListener("mouseup", this.handleMouseUp);
     window.addEventListener("touchend", this.handleMouseUp);
 
     // Only do drag if we hold the mouse down for a bit
     this.mouseClickTimeout = setTimeout(() => {
+      try{
       this.mouseClickTimeout = null;
 
       this.context.store.updateElementDraggingState(true, true);
@@ -122,13 +122,12 @@ class ElementItem extends Component {
 
       window.addEventListener("touchmove", this.handleTouchMove);
       window.addEventListener("mousemove", this.handleMouseMove);
+      }catch(e){alert('出错了')}
     }, 150);
   }
 
   handleMouseUp = (event) => {
-    debugger;
     if (this.mouseClickTimeout || this.mouseClickTimeout === 0) {
-      clearTimeout(this.mouseClickTimeout);
       window.removeEventListener("mouseup", this.handleMouseUp);
       window.removeEventListener("touchend", this.handleMouseUp);
 
@@ -156,7 +155,6 @@ class ElementItem extends Component {
       isOverCanvasPosition: null,
       isPressed: false
     };
-
     if (this.state.isOverCanvasPosition) {
       // Don't show return animation if dropping the element on the canvas
       state.isUpdating = true;
@@ -217,8 +215,6 @@ class ElementItem extends Component {
         onTouchStart={this.handleTouchStart}
         className={`${styles.wrapper} ${BLACKLIST_CURRENT_ELEMENT_DESELECT}`}
         style={{
-       /*    left: elementLeft,
-          top: elementTop, */
           width: elementWidth,
           height: elementHeight,
           cursor: isPressed ? "-webkit-grabbing" : "-webkit-grab"
@@ -228,8 +224,7 @@ class ElementItem extends Component {
         <div
           className={styles.item}
         >
-{/*           <Icon name={elementType} className={styles.icon} />
- */}          <h4>
+          <h4>
             {elementType}
           </h4>
         </div>

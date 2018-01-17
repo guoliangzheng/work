@@ -31,6 +31,10 @@ class Slide extends Component {
   }
 
   componentDidMount() {
+      document.addEventListener('mouseover',(e)=>{
+          this.context.store.setDropTagElement(this.context.store.rootID)
+        },false);
+
     document.addEventListener("keydown", this.handleKeyDown);
     document.addEventListener("keyup", this.handleKeyUp);
   }
@@ -101,9 +105,10 @@ class Slide extends Component {
 
   handleResize = (e, originalSize, nextSize, mode) => {
     this.runConstraints(e, originalSize, nextSize, mode);
+
   }
 
-  handleResizeStart = () => {
+  handleResizeStart = (event) => {
     this.stopNudging();
     this.calculateSnapLines();
     this.context.store.updateElementResizeState(true);
@@ -113,33 +118,39 @@ class Slide extends Component {
     this.persistSize(mode);
     this.context.store.updateElementResizeState(false);
     this.setState({ activeSnapLines: [], intermediarySize: null });
+    
   }
 
   handleDrag = (e, originalSize, nextSize, mode) => {
     this.runConstraints(e, originalSize, nextSize, mode);
+
   }
 
-  handleMouseOver=(id)=>{
+  handleMouseOver=(id,event)=>{
     this.context.store.setMouserOverElement(id);    
+    event.stopPropagation();//阻止事件冒泡
   }
 
-  handleDragStart = () => {
+  handleDragStart = (event) => {
     this.stopNudging();
     this.calculateSnapLines();
     this.context.store.updateElementDraggingState(true);
+
   }
 
   handleDragStop = (mode) => {
     this.persistSize(mode);
     this.context.store.updateElementDraggingState(false);
     this.setState({ activeSnapLines: [], intermediarySize: null });
+
   }
   handleDrop =(mode)=>{
-    alert('drop');
   }
-  handleMouseDown = (id) => {
+  handleMouseDown = (id,event) => {
+    console.log("mousedown   "+id)
     this.stopNudging();
     this.context.store.setCurrentElement(id);
+    event.stopPropagation();//阻止事件冒泡
   }   
   stopNudging = () => {
     if (this.isNudging) {
@@ -186,6 +197,7 @@ class Slide extends Component {
 
 
   renderChild = (child) => {
+
     const id = child.id;
     const store = this.context.store;
     const isSelected = store.currentElement === id;
@@ -200,13 +212,12 @@ class Slide extends Component {
 
     const intermediarySize = isSelected ? this.state.intermediarySize : null;
     const Element = elementFromType.get(childObj.type);
- 
     let top = intermediarySize ? intermediarySize.top : childObj.props.style.top;
     let left= intermediarySize ? intermediarySize.left : childObj.props.style.left
     return (
-    
         <Element
-          key={childObj.id}
+          key = {childObj.id}
+          index={childObj.id}
           classes={classes}
           mouseDownAction={this.handleMouseDown.bind(null, childObj.id)}
           dragOverAction={this.handleMouseDown.bind(null, childObj.id)}

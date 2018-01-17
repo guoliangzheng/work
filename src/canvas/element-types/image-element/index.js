@@ -27,7 +27,7 @@ export default class ImageElement extends Component {
     return (
 
       <div 
-      key={this.props.keys}
+      key={this.props.index}
       className={this.props.classes}
       onMouseDown={this.props.mouseDownAction}
       onDragOver={this.props.dragOverAction}

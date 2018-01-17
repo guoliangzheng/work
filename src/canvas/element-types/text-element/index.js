@@ -214,10 +214,9 @@ export default class TextElement extends Component {
     let width = componentProps.style.width ? componentProps.style.width : "auto";
     width = this.props.rect ? this.props.rect.width : width;
     let height = this.props.rect ? this.props.rect.height : componentProps.style.height;
-
     return (
       <div 
-      key={this.props.keys}
+      key={this.props.index}
       className={this.props.classes}
       onMouseDown={this.props.mouseDownAction}
       onDragOver={this.props.dragOverAction}

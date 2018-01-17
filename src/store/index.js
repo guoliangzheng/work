@@ -64,8 +64,8 @@ export default class Store{
   }
 
   dropElement(elementType, extraProps) {
-    alert(elementType)
-    let selectItemid = this.mouseOverElement || this.rootID;
+    let selectItemid = this.dropTagElementId || this.rootID;
+
     const parent = this.components.get(selectItemid);
     //const slideToAddTo = this.currentSlide;
     const element = elementMap[elementType];
