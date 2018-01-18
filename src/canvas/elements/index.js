@@ -73,6 +73,36 @@ elements[ElementTypes.LAYOUT] = {
   children: []
 };
 
+elements[ElementTypes.LIST] = {
+  type: ElementTypes.LIST,
+  props: {
+    style: {
+      width: 400,
+      height: 400,
+      left: 0,
+      top: 0
+    },
+    header:'',
+    footer:'',
+    size:'smaller',
+    data : [
+      {
+        value: 'Title 1',key:1,
+      },
+      {
+        value: 'Title 2',key:2,
+      },
+      {
+        value: ' Title 3',key:3,
+      },
+      {
+        value: 'Title 4',key:4,
+      }
+    ]
+  },
+  children: []
+};
+
 elements[ElementTypes.TABLE] = {
   type: ElementTypes.TABLE,
   resizeVertical: true,
@@ -84,29 +114,42 @@ elements[ElementTypes.TABLE] = {
       top: 0
     },
     columns : [{
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        render: text => <a href="#">{text}</a>,
-      }, {
-        title: 'Age',
-        dataIndex: 'age',
-        key: 'age',
-      }, {
-        title: 'Address',
-        dataIndex: 'address',
-        key: 'address',
-      }
-    ],
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      render: text => <a href="#">{text}</a>,
+    }, {
+      title: 'Age',
+      dataIndex: 'age',
+      key: 'age',
+    }, {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+    }, {
+      title: 'Action',
+      key: 'action',
+      render: (text, record) => (
+        <span>
+          <a href="#">Action 一 {record.name}</a>
+          <a href="#">Delete</a>
+          <a href="#" className="ant-dropdown-link">
+          </a>
+        </span>
+      ),
+    }],
     data : [{
+      key: '1',
       name: 'John Brown',
       age: 32,
       address: 'New York No. 1 Lake Park',
     }, {
+      key: '2',
       name: 'Jim Green',
       age: 42,
       address: 'London No. 1 Lake Park',
     }, {
+      key: '3',
       name: 'Joe Black',
       age: 32,
       address: 'Sidney No. 1 Lake Park',

@@ -41,10 +41,9 @@ export default class LayoutElement extends Component {
     let flexDirection =style.flexDirection;
     return ( 
       <div 
-    
-      onMouseDown={this.props.mouseDownAction}
-      onDragOver={this.props.dragOverAction}
-      style={{top:this.props.postions.top,left:this.props.postions.left}}
+        onMouseDown={this.props.mouseDownAction}
+        onDragOver={this.props.dragOverAction}
+        style={{top:this.props.postions.top,left:this.props.postions.left}}
       >
        <CanvasElement style={{ display: display,
         flex: flex,

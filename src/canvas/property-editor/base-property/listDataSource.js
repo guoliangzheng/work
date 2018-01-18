@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import styles from './index.css'
 import { observer } from "mobx-react";
 @observer
-export default class TableColumn extends Component {
+export default class ListDataSource extends Component {
       
   static contextTypes = {
     store:PropTypes.object
   }
   constructor(){
      super()
-     this.propertyName = "columns";
+     this.propertyName = "data";
   }  
   handleChange = (ev) => {
     const value = ev.target.value;
@@ -25,17 +25,17 @@ export default class TableColumn extends Component {
         const { currentComponents } = this.context.store;
         const { columns } = currentComponents.props;
     
-        this.context.store.updateElementProps({ columns: updatedValue });
+        this.context.store.updateElementProps({ data: updatedValue });
   }
   render(){
     const currentElement = this.context.store.currentComponents;
     const props = currentElement.props;
-    const columns = props.columns;
+    const data = props.data;
     return (
             <div className={styles.propertyGroup}>
-                <label className={styles.controlLable}>列信息</label>
+                <label className={styles.controlLable}>数据源</label>
                 <div >
-                    <input className={styles.propertyControl} type="text" defaultValue={JSON.stringify(columns)} onChange={this.handleChange}/>
+                    <input className={styles.propertyControl} type="text" defaultValue={JSON.stringify(data)} onChange={this.handleChange}/>
                 </div>
             </div>
         )
