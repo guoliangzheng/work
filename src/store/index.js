@@ -3,6 +3,8 @@ import Immutable from "seamless-immutable";
 import { merge, mergeWith, pick, omit } from "lodash";
 import uuid from '../util/uuid'
 import elementMap from "../canvas/elements";
+import xml2js from'xml2js';
+console.log(xml2js)
 
 export default class Store{
     @observable rootID = null;
@@ -30,6 +32,7 @@ export default class Store{
       return this.slide;
     }
     constructor(slide) {
+      window.memroy = this;
 
       if(slide){
         this.slide = slide;
@@ -155,5 +158,19 @@ export default class Store{
     return currentElement;
   }
 
-
+  serialize(){
+      this.toxml(this.rootID);
+  }
+  toxml(id){
+    const obj = this.components.get(id)
+    if(!obj) return ;
+    var builder = new xml2js.Builder({cdata:true});
+    var xml = builder.buildObject(obj);
+    console.log(xml)
+    const children = obj.children;
+    if(children ==null) return ;
+    for(let i =0,length = children.length;i<length;i++){
+       this.toxml(children[i]);
+    }
+  }
 }

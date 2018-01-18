@@ -3,10 +3,11 @@ import { pick } from "lodash";
 import CanvasElement, { CanvasElementPropTypes } from "../../canvas-element";
 import PropTypes from 'prop-types';
 import { observer } from "mobx-react";
-import { Table} from 'antd';
+import { List } from 'antd';
+import { Form} from 'antd';
 
 @observer
-export default class TableElement extends Component {
+export default class FormItemElement extends Component {
   static propTypes = {
     ...CanvasElementPropTypes,
     rect: PropTypes.object,
@@ -26,11 +27,8 @@ export default class TableElement extends Component {
     const componentProps = this.props.component.props;
     const width = this.props.rect ? this.props.rect.width : componentProps.style.width;
     const height = this.props.rect ? this.props.rect.height : componentProps.style.height;
-    const columns = componentProps.columns;
-    const data = componentProps.data;    
-
-
-    
+     const data = componentProps.data;  
+  
     return (
       <div 
         key={this.props.index}
@@ -42,9 +40,10 @@ export default class TableElement extends Component {
       >
       <CanvasElement
         {...pick(this.props, Object.keys(CanvasElementPropTypes))}
-        getSize={this.getSize}
-      >
-       <Table  pagination={false} style={{width,height}} columns={columns} dataSource={data} />
+        getSize={this.getSize}>
+          <Form.Item >
+                {this.props.children}
+          </Form.Item>
       </CanvasElement>
       </div>
     );

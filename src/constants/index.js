@@ -6,6 +6,8 @@ export const ElementTypes = {
   HEADING: "Heading",
   TEXT: "Text",
   IMAGE: "Image",
+  FORM:'Form',
+  FORMIITEM:'FormItem',
   BOX:'Box',
   LIST:'List',
   LAYOUT:'Layout',

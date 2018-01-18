@@ -11,7 +11,9 @@ const elements = [
                     ElementTypes.TABLE,
                     ElementTypes.LIST,
                     ElementTypes.BOX,
-                    ElementTypes.LAYOUT
+                    ElementTypes.LAYOUT,
+                    ElementTypes.FORM,
+                    ElementTypes.FORMIITEM
                   ];
 const elementWidth = 60;
 const elementHeight = 48;

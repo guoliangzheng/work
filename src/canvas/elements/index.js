@@ -158,4 +158,30 @@ elements[ElementTypes.TABLE] = {
   children: []
 };
 
+
+elements[ElementTypes.FORM] = {
+  type: ElementTypes.FORM,
+  props: {
+    style: {
+      width: 400,
+      height: 400,
+      left: 0,
+      top: 0
+    },
+  },
+  children: []
+};
+
+
+elements[ElementTypes.FORMIITEM] = {
+  type: ElementTypes.FORMIITEM,
+  props: {
+    style: {
+      width: 400,
+      height: 400,
+    },
+  },
+  children: []
+};
+
 export default elements;
