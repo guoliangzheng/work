@@ -73,9 +73,8 @@ export default class TextElement extends Component {
           <Input ref={el => { this.inputElement = ReactDOM.findDOMNode(el); }}
           
           placeholder="Input 2" defaultValue="Value on load" />
-           */}  
-            
-          <Input placeholder="Basic usage" style={{width:width,height:height}} />
+           */}      
+          <Input  style={{width:width,height:height}} />
 
              {/*      <input  ref={el => { this.inputElement = ReactDOM.findDOMNode(el); }}
        ></input>  */}

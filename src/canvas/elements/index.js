@@ -18,6 +18,8 @@ elements[ElementTypes.TEXT] = {
       wordBreak: "break-word",
       width: 200,
       height: 50,
+      left:70,
+      top:0,
       
     }
   },
@@ -162,6 +164,7 @@ elements[ElementTypes.TABLE] = {
 elements[ElementTypes.FORM] = {
   type: ElementTypes.FORM,
   props: {
+    layout:"horizontal",
     style: {
       width: 400,
       height: 400,
@@ -176,6 +179,7 @@ elements[ElementTypes.FORM] = {
 elements[ElementTypes.FORMIITEM] = {
   type: ElementTypes.FORMIITEM,
   props: {
+    label:'label',
     style: {
       width: 400,
       height: 400,

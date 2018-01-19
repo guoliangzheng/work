@@ -30,11 +30,15 @@ export default class FormElement extends Component {
   openEditor=()=>{
     this.setState({isedit:true})
   }
+  closeEditor=()=>{
+    this.setState({isedit:false})
+  }
   render() {
     const componentProps = this.props.component.props;
     const width = this.props.rect ? this.props.rect.width : componentProps.style.width;
     const height = this.props.rect ? this.props.rect.height : componentProps.style.height;
     const data = componentProps.data; 
+    const layout = componentProps.layout;
     return (
       <div 
         key={this.props.index}
@@ -48,10 +52,9 @@ export default class FormElement extends Component {
         {...pick(this.props, Object.keys(CanvasElementPropTypes))}
         getSize={this.getSize}
       >
-         <Form onDoubleClick={this.openEditor} style={{width,height}} layout="inline" >
+         <Form onDoubleClick={this.openEditor} style={{width,height}} layout={layout} >
               {this.props.children}
-              {this.state.isedit?<FormDesginer/>:''}
-
+              {this.state.isedit?<FormDesginer onClose={this.closeEditor} id={this.props.index}/>:''}
          </Form>
       </CanvasElement>
       </div>

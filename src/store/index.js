@@ -3,8 +3,8 @@ import Immutable from "seamless-immutable";
 import { merge, mergeWith, pick, omit } from "lodash";
 import uuid from '../util/uuid'
 import elementMap from "../canvas/elements";
+import {ElementTypes} from "../constants"
 import xml2js from'xml2js';
-console.log(xml2js)
 
 export default class Store{
     @observable rootID = null;
@@ -144,13 +144,43 @@ export default class Store{
   @computed get getpoprtyeChange(){
     return this.poprtyeChange;
   }
-  
+
+  addFromItem(formID,item){
+    const form = this.components.get(formID);
+    const {label,type} = item;
+    let formItem = elementMap[ElementTypes.FORMIITEM]
+    formItem.props.label = label;
+    const formItemId = uuid();
+    formItem= {
+      ...formItem,
+      parent:formID,
+      id: formItemId,
+      children:[]
+    };
+
+    let element = elementMap[type];
+    const elementid = uuid();
+    element= {
+      ...element,
+      parent:formItemId,
+      id: elementid,
+      children:[]
+    };
+    form.children.push(formItemId);
+    formItem.children.push(elementid);
+    this.components.set(formItemId,formItem);
+    this.components.set(elementid,element); 
+ 
+  }
   @computed get currentComponents(){
     const currentElement = this.components.get(this.currentElement);
     return currentElement;
   }
   setDropTagElement(id){
     this.dropTagElementId= id;
+  }
+  getComponentByid(id){
+    return this.components.get(id); 
   }
 
   @computed get dropTagElement(){

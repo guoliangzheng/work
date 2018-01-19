@@ -4,13 +4,11 @@ import PropTypes from 'prop-types'
 import styles from "../index.css";
 import { map, omit, find } from "lodash";
 import { DatePicker } from 'antd';
-import {Width,Height,TableColumn,TableDataSource} from '../base-property';
-
-export default class TableProperty extends Component {
+import {Width,Height,Layout} from '../base-property';
+export default class FormProperty extends Component {
   static contextTypes = {
     store:PropTypes.object
   }
-
   constructor(props) {
     super(props);
     this.state = { currentElement: null };
@@ -18,12 +16,10 @@ export default class TableProperty extends Component {
 
  
   render() {    
+     const poprtyeChange = this.context.store.getpoprtyeChange;
     return (
       <div>
-       <Width/>
-       <Height/>
-       <TableColumn/>
-       <TableDataSource/>
+        <Layout/>
       </div>
     );
   }

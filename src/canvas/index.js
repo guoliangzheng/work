@@ -178,8 +178,7 @@ class Canvas extends Component  {
         />
         </div>
         <div
-/*             className={styles.canvasWrapper}
- */            style={{
+            style={{
               width: 1000, 
               height: 700,
               cursor: isDraggingElement ? "move" : "auto",

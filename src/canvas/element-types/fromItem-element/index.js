@@ -28,9 +28,10 @@ export default class FormItemElement extends Component {
     const width = this.props.rect ? this.props.rect.width : componentProps.style.width;
     const height = this.props.rect ? this.props.rect.height : componentProps.style.height;
      const data = componentProps.data;  
+     const label = componentProps.label;
   
     return (
-      <div 
+     /*   <div 
         key={this.props.index}
         className={this.props.classes}
         onMouseDown={this.props.mouseDownAction}
@@ -40,12 +41,12 @@ export default class FormItemElement extends Component {
       >
       <CanvasElement
         {...pick(this.props, Object.keys(CanvasElementPropTypes))}
-        getSize={this.getSize}>
-          <Form.Item >
+        getSize={this.getSize}>  */
+          <Form.Item label={label} >
                 {this.props.children}
           </Form.Item>
-      </CanvasElement>
-      </div>
+       /* </CanvasElement>
+      </div>  */
     );
   }
 }
