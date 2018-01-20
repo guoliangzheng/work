@@ -56,30 +56,10 @@ export default class TextElement extends Component {
     width = this.props.rect ? this.props.rect.width : width;
     let height = this.props.rect ? this.props.rect.height : componentProps.style.height;
     return (
-      <div 
-      key={this.props.index}
-      className={this.props.classes}
-      onMouseDown={this.props.mouseDownAction}
-      onDragOver={this.props.dragOverAction}
-      style={{top:this.props.postions.top,left:this.props.postions.left}}
-      >
-            <CanvasElement
-              {...pick(this.props, Object.keys(CanvasElementPropTypes))}
-              resizeHorizontal={true}
-              resizeVertical={true}
-              getSize={this.getSize}
-            > 
-          {/* <Input placeholder="Input 1" />
-          <Input ref={el => { this.inputElement = ReactDOM.findDOMNode(el); }}
-          
-          placeholder="Input 2" defaultValue="Value on load" />
-           */}      
+         
           <Input  style={{width:width,height:height}} />
 
-             {/*      <input  ref={el => { this.inputElement = ReactDOM.findDOMNode(el); }}
-       ></input>  */}
-            </CanvasElement>
-      </div>
+         
     );
   }
 }

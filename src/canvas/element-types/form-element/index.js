@@ -40,24 +40,12 @@ export default class FormElement extends Component {
     const data = componentProps.data; 
     const layout = componentProps.layout;
     return (
-      <div 
-        key={this.props.index}
-        className={this.props.classes}
-        onMouseDown={this.props.mouseDownAction}
-        onDragOver={this.props.dragOverAction}
-        onDrop={()=>{alert('hello')}}
-        style={{top:this.props.postions.top,left:this.props.postions.left}}
-      >
-      <CanvasElement
-        {...pick(this.props, Object.keys(CanvasElementPropTypes))}
-        getSize={this.getSize}
-      >
+      
          <Form onDoubleClick={this.openEditor} style={{width,height}} layout={layout} >
               {this.props.children}
               {this.state.isedit?<FormDesginer onClose={this.closeEditor} id={this.props.index}/>:''}
          </Form>
-      </CanvasElement>
-      </div>
+   
     );
   }
 }

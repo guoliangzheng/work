@@ -42,20 +42,9 @@ export default class BoxElement extends React.PureComponent {
     const background =style.background;
     return (
          
-      <div 
-      key={this.props.index}
-      className={this.props.classes}
-      onMouseDown={this.props.mouseDownAction}
-      onDragOver={this.props.dragOverAction}
-      style={{top:this.props.postions.top,left:this.props.postions.left}}
-      >
-          <CanvasElement
-            {...pick(this.props, Object.keys(CanvasElementPropTypes))}
-            getSize={this.getSize}
-          >
+     
           <div  style={{width:width,height:height,background:background,border:'1px solid #F00', }}>{this.props.children}</div>
-         </CanvasElement>
-      </div>
+       
     )
   }
 }

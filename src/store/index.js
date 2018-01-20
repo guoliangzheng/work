@@ -42,6 +42,7 @@ export default class Store{
         this.slide = Immutable.from( {
           parent:null,
           id: id,
+          type:'slide',
           props: { style: {}, transition: ["slide"] },
           children: []
          })
@@ -67,8 +68,8 @@ export default class Store{
     });
   }
 
-  dropElement(elementType, extraProps) {
-    let selectItemid = this.dropTagElementId || this.rootID;
+  dropElement(elementType,selectid, extraProps) {
+    let selectItemid = selectid || this.rootID;
     const parent = this.components.get(selectItemid);
     if(parent==null)  return ;
     //const slideToAddTo = this.currentSlide;

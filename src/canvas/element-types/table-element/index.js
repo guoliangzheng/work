@@ -32,21 +32,7 @@ export default class TableElement extends Component {
 
     
     return (
-      <div 
-        key={this.props.index}
-        className={this.props.classes}
-        onMouseDown={this.props.mouseDownAction}
-        onDragOver={this.props.dragOverAction}
-        onDrop={()=>{alert('hello')}}
-        style={{top:this.props.postions.top,left:this.props.postions.left}}
-      >
-      <CanvasElement
-        {...pick(this.props, Object.keys(CanvasElementPropTypes))}
-        getSize={this.getSize}
-      >
        <Table  pagination={false} style={{width,height}} columns={columns} dataSource={data} />
-      </CanvasElement>
-      </div>
     );
   }
 }

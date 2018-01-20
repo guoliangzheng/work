@@ -29,18 +29,7 @@ export default class ListElement extends Component {
      const data = componentProps.data;  
   
     return (
-      <div 
-        key={this.props.index}
-        className={this.props.classes}
-        onMouseDown={this.props.mouseDownAction}
-        onDragOver={this.props.dragOverAction}
-        onDrop={()=>{alert('hello')}}
-        style={{top:this.props.postions.top,left:this.props.postions.left}}
-      >
-      <CanvasElement
-        {...pick(this.props, Object.keys(CanvasElementPropTypes))}
-        getSize={this.getSize}
-      >
+     
        <List
           itemLayout="horizontal"
           dataSource={data}
@@ -54,8 +43,7 @@ export default class ListElement extends Component {
     )}
   />
 
-      </CanvasElement>
-      </div>
+   
     );
   }
 }

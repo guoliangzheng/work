@@ -6,12 +6,16 @@ import styles from "./index.css";
 import PropTypes, { element } from 'prop-types';
 import ElementList from '../element-list';
 import { ElementTypes, MODES } from "../constants";
+import ComponentTree from './componentTree'
 /* import Elements from "../elements";
  */
 import SnapLines from "./snap-lines";
 import * as constraints from "./constraints";
 import Slide from "./slide";
 import PropertyEditor  from './property-editor'
+
+import Preview from './preview'
+import preview from "./preview";
 
 @observer
 class Canvas extends Component  {
@@ -92,58 +96,20 @@ class Canvas extends Component  {
       }
     
       handleDragStart = (e, type) => {
-        this.context.store.setCurrentElement(null);
-    
-        const scale = this.context.store.scale;
-        const defaultSize = this.getDefaultSize(type);
-        const position = {};
-        const slideOffset = findDOMNode(this.slideRef).getBoundingClientRect();
-        position.left = (e.clientX - slideOffset.left - (defaultSize.width * scale / 2)) / scale;
-        position.top = (e.clientY - slideOffset.top - (defaultSize.height * scale / 2)) / scale;
-    
-        const rect = {
-          ...position,
-          ...defaultSize
-        };
-    
-        this.setState({
-          startMousePosition: { x: e.clientX, y: e.clientY },
-          startRect: rect,
-          elementType: type,
-          elementRect: rect,
-          snapLines: this.slideRef.getSnapLines(),
-          activeSnapLines: []
-        }); 
+       
       }
     
       handleDrag = (e) => {
-        const size = { ...this.state.startRect };
-        size.left += (e.clientX - this.state.startMousePosition.x) / this.context.store.scale;
-        size.top += (e.clientY - this.state.startMousePosition.y) / this.context.store.scale;
-        const results = constraints.constrainGrid(size, this.state.snapLines, MODES.MOVE);
-        this.setState({
-          elementRect: results.size,
-          activeSnapLines: results.lines
-        }); 
+       
       }
     
       handleDragStop = () => {
-         this.setState({
-          startMousePosition: null,
-          elementType: null,
-          elementRect: null,
-          snapLines: [],
-          activeSnapLines: []
-        }); 
+        
       }
     
-      handleDrop = (type) => {
-        const rect = this.state.elementRect || this.getDefaultPosition(type);
-        this.context.store.dropElement(type, {
+      handleDrop = (type,id) => {
+        this.context.store.dropElement(type, id,{
           style: {
-            position: "absolute",
-            left: rect.left,
-            top: rect.top
           }
         }); 
       } 
@@ -170,12 +136,15 @@ class Canvas extends Component  {
            
         <div  style={{float:'left', display:'inline-block',width:200}}>
         <ElementList 
-          scale={scale}
-          onDragStart={this.handleDragStart}
+/*           scale={scale}
+ */          onDragStart={this.handleDragStart}
           onDrag={this.handleDrag}
           onDragStop={this.handleDragStop}
-          onDrop={this.handleDrop}
+          onDrop={this.handleDrop} 
         />
+        </div>
+        <div>
+          <ComponentTree></ComponentTree>
         </div>
         <div
             style={{
@@ -197,11 +166,7 @@ class Canvas extends Component  {
                   backgroundColor: "#999"
                 }}
               >  
-                <Slide
-                  ref={(slide) => { this.slideRef = slide; }}
-                  scale={scale}
-                />
-                <SnapLines lines={this.state.activeSnapLines} scale={scale} />
+              <Preview/>  
               </div>
             </div>
            </div>
@@ -211,4 +176,4 @@ class Canvas extends Component  {
       }
 
 }
-export default Canvas 
+export default  Canvas 

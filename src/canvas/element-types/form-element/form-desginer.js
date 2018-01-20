@@ -30,7 +30,6 @@ export default class FormDesginer extends Component {
         if(temp.children && temp.children.lenght>0 ){
             type = temp.children[0].type;
         }
-        alert(type)
         list.push({key:id,label,type})
     })
     this.setState ({list:list}); 

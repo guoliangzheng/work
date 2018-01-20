@@ -40,21 +40,7 @@ export default class LayoutElement extends Component {
     let bottom = style.bottom;
     let flexDirection =style.flexDirection;
     return ( 
-      <div 
-        onMouseDown={this.props.mouseDownAction}
-        onDragOver={this.props.dragOverAction}
-        style={{top:this.props.postions.top,left:this.props.postions.left}}
-      >
-       <CanvasElement style={{ display: display,
-        flex: flex,
-        position: position,
-        left: left,
-        right: right,
-        top: top,
-        bottom: bottom}}
-        {...pick(this.props, Object.keys(CanvasElementPropTypes))}
-        getSize={this.getSize}
-    > 
+    
     
         <div style={{ display: display,
             flex: flex,
@@ -66,9 +52,7 @@ export default class LayoutElement extends Component {
             bottom: bottom}}>
             {this.props.children}
             </div>
-       </CanvasElement> 
-
-      </div>
+       
     );
   }
 }
