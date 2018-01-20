@@ -6,8 +6,7 @@ import { findDOMNode } from "react-dom";
 
 import { BLACKLIST_CURRENT_ELEMENT_DESELECT, ElementTypes, MODES } from "../constants";
 import { Tree } from 'antd';
-import NodeInfo from './nodeinfo'
-
+import { DropTarget } from 'react-dnd'
 const TreeNode = Tree.TreeNode;
 const boxTarget = {
 	drop(props,monitor) {
@@ -15,9 +14,13 @@ const boxTarget = {
     return { id: props.index}
 	},
 }
-
+@DropTarget("element-types", boxTarget, (connect, monitor) => ({
+	connectDropTarget: connect.dropTarget(),
+	isOver: monitor.isOver(),
+	canDrop: monitor.canDrop(),
+}))
 @observer
-class ComponentTreeNode extends Component {
+class NodeInfo extends Component {
   
   static propTypes = {
 		connectDropTarget: PropTypes.func.isRequired,
@@ -29,25 +32,28 @@ class ComponentTreeNode extends Component {
     store: PropTypes.object
   };
 
- 
+  onClick =()=>{
+    this.context.store.setCurrentElement(this.props.index);
+  }
   constructor(props, context) {
     super(props, context);
   }
+ 
 
   render() {
     const props =this.props;
     const { canDrop, isOver, connectDropTarget } = this.props;
 
-    return (
-
-      <li onClick={this.click} {...props}><span className="ant-tree-switcher ant-tree-switcher_open"></span>
+    return connectDropTarget(
+        <span onClick={this.onClick} className="ant-tree-title" {...props}>{this.props.title}</span>
+/* 
+      <li {...props}><span className="ant-tree-switcher ant-tree-switcher_open"></span>
         <span title="slide" className="ant-tree-node-content-wrapper ant-tree-node-content-wrapper-open">
-       {/*  <span className="ant-tree-title">{this.props.title}</span> */}
-       <NodeInfo {...props}/> 
+        <span className="ant-tree-title">{this.props.title}</span>
           {this.props.children}
         </span>
       </li>
-
+ */
          /*  <li {...props}> {this.props.title}
             {this.props.children}
           </li> */
@@ -67,4 +73,4 @@ class ComponentTreeNode extends Component {
   }
 }
 
-export default ComponentTreeNode;
+export default NodeInfo;

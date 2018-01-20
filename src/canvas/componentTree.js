@@ -31,7 +31,7 @@ class ComponentTree extends Component {
     if(!childObj)return;
     return (
         <ComponentTreeNode dataRef={childObj}  index={childObj.id}  title={childObj.type}  key={childObj.id}>
-           {childObj.children!=null && childObj.children.map(this.renderChild) }
+           {childObj.children!=null &&  <ul className="ant-tree" role="tree-node" unselectable="on"> {childObj.children.map(this.renderChild)}</ul> }
         </ComponentTreeNode>
     );
   }
@@ -41,12 +41,20 @@ class ComponentTree extends Component {
     if (!components) return null;
     const currentSlide = components.get(rootID);
     return (
-        <Tree onSelect={this.onSelect} onDragEnter={(e)=>{alert(e)}}>
+
+      <ul className="ant-tree" role="tree-node" unselectable="on">
+        <ComponentTreeNode dataRef={currentSlide}   title={currentSlide.type} index={currentSlide.id}  key={currentSlide.id}>
+          {currentSlide && rootID && currentSlide.children.map(this.renderChild)}
+         </ComponentTreeNode> 
+     </ul>
+   
+
+      /*   <Tree onSelect={this.onSelect} onDragEnter={(e)=>{alert(e)}}>
           <ComponentTreeNode dataRef={currentSlide}   title={currentSlide.type} index={currentSlide.id}  key={currentSlide.id}>
             {currentSlide && rootID && currentSlide.children.map(this.renderChild)}
           </ComponentTreeNode>
         </Tree>    
-    
+     */
     );
   }
 }
