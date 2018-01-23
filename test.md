@@ -1,3 +1,4 @@
+```
 gantt
 dateFormat YYYY-MM-DD
 section S1
